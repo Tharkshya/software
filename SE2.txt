@@ -1,0 +1,20 @@
+import numpy as np
+
+print("Enter 3 data points as t and temperature (space-separated):")
+
+points = []
+for i in range(3):
+    inp = input(f"Data point {i+1} (t T): ")
+    t_str, T_str = inp.split()
+    points.append((float(t_str), float(T_str)))
+
+A = np.array([[t**2, t, 1] for t, T in points])
+y = np.array([T for t, T in points])
+
+a, b, c = np.linalg.solve(A, y)
+
+print(f"Model: T(t) = {a:.2f}t² + {b:.2f}t + {c:.2f}")
+
+t_predict = float(input("Enter day t to predict temperature: "))
+T_pred = a * t_predict**2 + b * t_predict + c
+print(f"Predicted temperature for day {t_predict}: {T_pred:.2f}°C")
